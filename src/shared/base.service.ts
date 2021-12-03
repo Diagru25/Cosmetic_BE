@@ -1,22 +1,24 @@
 import { Injectable } from '@nestjs/common';
 import { Document, Model } from 'mongoose';
-import { IBase } from 'src/interfaces';
+import { IBaseService } from 'src/interfaces';
 
 @Injectable()
-export class BaseService<T extends Document> implements IBase {
+export class BaseService<T extends Document, dtoT>
+  implements IBaseService<T, dtoT>
+{
   constructor(private readonly model: Model<T>) {}
 
-  async create(entity) {
+  async insert(entity: dtoT) {
     const item = await this.model.create(entity);
     return item;
   }
 
-  async update(id, entity) {
+  async update(id, entity: dtoT) {
     const item = await this.model.findByIdAndUpdate(id, entity, { new: true });
     return item;
   }
 
-  async delete(id, filter) {
+  async remove(id, filter) {
     const item = await this.model.findByIdAndDelete(id);
     return item;
   }
