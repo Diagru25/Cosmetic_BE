@@ -1,3 +1,4 @@
+
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 
@@ -8,11 +9,16 @@ import {
   GroupSchema,
   ModuleSchema,
   PermissionSchema,
+  UserSchema,
+  RoleSchema,
   tbl_group,
   tbl_module,
   tbl_permission,
+  tbl_user,
+  tbl_role
 } from './schema';
 import { GroupsService } from './services/tbl_group.service';
+import { UsersService } from './services/tbl_user.service';
 
 @Module({
   imports: [
@@ -30,6 +36,14 @@ import { GroupsService } from './services/tbl_group.service';
         name: tbl_permission.name,
         schema: PermissionSchema,
       },
+      {
+        name: tbl_user.name,
+        schema: UserSchema,
+      },
+      {
+        name: tbl_role.name,
+        schema: RoleSchema,
+      },
     ]),
     JwtModule.register({
       secret: keys.jwt.JWT_SECRET,
@@ -39,11 +53,7 @@ import { GroupsService } from './services/tbl_group.service';
     }),
   ],
 
-  providers: [
-      GroupsService
-  ],
-  exports: [
-      GroupsService
-  ],
+  providers: [GroupsService, UsersService],
+  exports: [GroupsService, UsersService],
 })
 export class DatabaseModule {}
