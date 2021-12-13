@@ -19,6 +19,7 @@ import {
 } from './schema';
 import { GroupsService } from './services/tbl_group.service';
 import { UsersService } from './services/tbl_user.service';
+import { AuthService } from './services/auth.service';
 
 @Module({
   imports: [
@@ -53,7 +54,7 @@ import { UsersService } from './services/tbl_user.service';
     }),
   ],
 
-  providers: [GroupsService, UsersService],
-  exports: [GroupsService, UsersService],
+  providers: [GroupsService, UsersService, AuthService],
+  exports: [GroupsService, UsersService, AuthService],
 })
 export class DatabaseModule {}
