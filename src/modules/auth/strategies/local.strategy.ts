@@ -5,13 +5,18 @@ import { AuthService } from 'src/modules/database/services/auth.service';
 @Injectable()
 export class LocalStrategy extends PassportStrategy(Strategy) {
   constructor(private readonly authService: AuthService) {
-    super();
+    super({ passReqToCallback: true });
   }
 
-  async validate(username: string, password: string): Promise<any> {
-    const result = await this.authService.validateUser(username, password);
+  async validate(
+    req: any,
+    username: string,
+    password: string,
+  ): Promise<any> {
+    //console.log(req.connection.remoteAddress);
+    const result = await this.authService.validateUser(username, password, req.ip);
 
-    if (!result.isValidate) throw new UnauthorizedException();
+    if (!result.isValidate) throw new UnauthorizedException(result.description);
 
     return result.user;
   }

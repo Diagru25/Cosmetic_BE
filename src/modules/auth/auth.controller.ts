@@ -19,12 +19,14 @@ export class AuthController {
   @UseGuards(LocalAuthGuard)
   @Post()
   async insert(@Req() req: any, @Res() res: Response) {
-    const result = await this.authService.login(req.user);
-    if (result.isSuccess) {
-        return apiResponse(res, result.status, result.data);
-    }
-    else {
-        return apiResponse(res, result.status, result.data, 'Lỗi')
-    }
+      return false
+    //const result = await this.authService.login(req.user);
+    //console.log(req)
+    // if (result.isSuccess) {
+    //     return apiResponse(res, result.status, result.data);
+    // }
+    // else {
+    //     return apiResponse(res, result.status, result.data, 'Lỗi')
+    // }
   }
 }
