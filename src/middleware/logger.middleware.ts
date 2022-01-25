@@ -11,18 +11,18 @@ import { LogService } from 'src/modules/database/services/tbl_log.service';
 @Injectable()
 export class LoggerMiddleware implements NestMiddleware {
   //kieu 1
-    constructor(
-      @Inject(tbl_log.name)
-      private readonly logModel: Model<LogDocument>,
-    ) {}
+  //   constructor(
+  //     @InjectModel(tbl_log.name)
+  //     private readonly logModel: Model<LogDocument>,
+  //   ) {}
 
-//   kieu 2
-//     @InjectModel(tbl_log.name)
-//     private readonly logModel: Model<LogDocument>;
+  //kieu 2
+  //   @InjectModel(tbl_log.name)
+  //   private readonly logModel: Model<LogDocument>;
 
-//   //kieu 3
-//   @Inject(LogService)
-//   logServices: LogService;
+  //kieu 3
+  @Inject(LogService)
+  logServices: LogService;
 
   use(req: Request, res: Response, next: NextFunction) {
     console.log('middleware: ', req.ip);
